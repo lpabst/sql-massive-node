@@ -31,13 +31,21 @@ module.exports = {
     },
 
     updateProduct: function(req, res, next){
-        db.updateProduct(function(err, products){
+        let id = req.params.id;
+        let name = req.body.name;
+        let desc = req.body.description;
+        let price = req.body.price;
+        let imageurl = req.body.imageurl;
+
+        db.updateProduct([id, name, desc, price, imageurl], function(err, products){
             return res.send(products);
         })
     },
 
     deleteProduct: function(req, res, next){
-        db.deleteProduct(function(err, products){
+        let id = req.params.id;
+
+        db.deleteProduct([id], function(err, products){
             return res.send(products);
         })
     }

@@ -14,7 +14,7 @@ var db = app.get('db');
 
 app.use(bodyParser.json());
 
-// ALWAYS declare/require controllers right above 
+// ALWAYS require the controllers right above 
 // where we do our endpoints!!!
 const controller = require('./productsCtrl.js');
 
