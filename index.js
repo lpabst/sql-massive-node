@@ -33,4 +33,4 @@ app.delete('/api/products/:id', controller.deleteProduct);
 
 
 
-app.listen(8000, console.log('yo 8000'))
+app.listen(8000, console.log('8000 yo'))

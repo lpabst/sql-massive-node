@@ -24,9 +24,17 @@ module.exports = {
         let price = req.body.price;
         let imageurl = req.body.imageurl;
 
-        db.createProduct([id, name, desc, price, imageurl], function(err, products){
-            return res.send('ok');
-        })
+        if (id && name && desc && price && imageurl){
+            db.createProduct([id, name, desc, price, imageurl], function(err, response){
+                let id = response[0].id;
+                db.getProductById([id], function(err, products){
+                    return res.send({"new product": products[0]});
+                })
+            })
+        }else{
+            return res.send('Bad request. Please include an id, name, desc, price, & imageurl');
+        }
+
     },
 
     updateProduct: function(req, res, next){
@@ -36,16 +44,25 @@ module.exports = {
         let price = req.body.price;
         let imageurl = req.body.imageurl;
 
-        db.updateProduct([id, name, desc, price, imageurl], function(err, products){
-            return res.send(products);
-        })
+        if (name && desc && price && imageurl){
+            db.updateProduct([id, name, desc, price, imageurl], function(err, response){
+                 db.getAllProducts(function(err, products){
+                    return res.send({"updated item with id": id, "new array": products});
+                });
+            });
+
+        }else{
+            return res.send('Bad request. Please include a name, desc, price, & imageurl');
+        }
     },
 
     deleteProduct: function(req, res, next){
         let id = req.params.id;
 
         db.deleteProduct([id], function(err, products){
-            return res.send(products);
+            db.getAllProducts(function(err, products){
+                return res.send({"deleted item with id": id,"new array": products});
+            })
         })
     }
 
