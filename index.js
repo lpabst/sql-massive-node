@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const massive = require('massive');
-const controller = require('./productsCtrl.js');
 const session = require('express-session');
 
 const app = module.exports = express();
@@ -15,6 +14,9 @@ var db = app.get('db');
 
 app.use(bodyParser.json());
 
+// ALWAYS declare/require controllers right above 
+// where we do our endpoints!!!
+const controller = require('./productsCtrl.js');
 
 app.get('/api/products', controller.getAllProducts);
 app.get('/api/products/:id', controller.getProductById);
