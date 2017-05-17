@@ -1,6 +1,5 @@
 var app = require('./index.js');
 var db = app.get('db');
-console.log(db);
 
 module.exports = {
 
